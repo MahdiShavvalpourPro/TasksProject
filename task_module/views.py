@@ -25,7 +25,7 @@ class TaskViewSetApiView(viewsets.ModelViewSet):
 
 # region TasksMixinApiView
 
-class Test(viewsets.GenericViewSet, mixins.ListModelMixin):
+class TasksMixinsFilterApiView(viewsets.GenericViewSet, mixins.ListModelMixin):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]

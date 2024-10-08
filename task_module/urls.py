@@ -6,14 +6,11 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from task_module import views
 
 router = DefaultRouter()
-router_2 = DefaultRouter()
-router.register('', views.Test)
-router_2.register('', views.TaskViewSetApiView)
+router.register(r'', views.TaskViewSetApiView, basename='task_api')
+router.register(r'tasks/', views.TasksMixinsFilterApiView, basename='task_filter')
 
 urlpatterns = [
-    # path('', include(router_2.urls)),
-    path('tasks/', include(router.urls)),
-
+    path('', include(router.urls)),
     # YOUR PATTERNS
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Optional UI:
