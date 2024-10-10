@@ -14,6 +14,7 @@ router.register(r'', views.TaskViewSetApiView, basename='task_api')
 router.register(r'tasks/', views.TasksMixinsFilterApiView, basename='task_filter')
 
 urlpatterns = [
+    path('test/', views.get_all_tasks),
     # YOUR PATTERNS
     # UI for Graphql
     path("graphql/", (GraphQLView.as_view(graphiql=True, schema=schema))),

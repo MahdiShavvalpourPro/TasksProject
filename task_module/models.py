@@ -1,7 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
-
-# Create your models here.
+User = get_user_model()
 
 
 class Task(models.Model):
@@ -18,6 +18,8 @@ class Task(models.Model):
         auto_now=True, verbose_name='تاریخ ویرایش')
     status = models.CharField(max_length=2, choices=TaskStatus.choices, default=TaskStatus.PENDING,
                               verbose_name='وضعیت')
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks')
 
     class Meta:
         verbose_name = 'وظیفه'

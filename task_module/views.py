@@ -1,12 +1,15 @@
 # region
 
 import django_filters.rest_framework
-from rest_framework import generics, mixins
+from rest_framework import generics, mixins, status
 from rest_framework import viewsets
+from rest_framework.decorators import api_view
 
 from task_module.models import Task
 from .filters import TaskFilter
 from .serilizers import TaskSerializer
+from rest_framework.request import Request
+from rest_framework.response import Response
 
 
 # endregion
@@ -31,6 +34,7 @@ class TasksMixinsFilterApiView(viewsets.GenericViewSet, mixins.ListModelMixin):
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
     filterset_class = TaskFilter
 
+
 # endregion
 
 
@@ -47,3 +51,11 @@ class TasksMixinsFilterApiView(viewsets.GenericViewSet, mixins.ListModelMixin):
 #     return Response(serializer.data, status=status.HTTP_200_OK)
 
 # endregion
+
+
+@api_view(['GET'])
+def get_all_tasks(request: Request):
+    if request.method == 'GET':
+        tasks = Task.objects.all()
+        tasks_serializer = TaskSerializer(tasks, many=True)
+        return Response(tasks_serializer.data, status=status.HTTP_200_OK)
