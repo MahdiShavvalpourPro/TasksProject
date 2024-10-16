@@ -10,7 +10,7 @@ from graphene_django.views import GraphQLView
 from task_module.schema import schema
 
 router = DefaultRouter()
-router.register(r'', views.TaskViewSetApiView, basename='task_api')
+router.register(r'tasks', views.TaskViewSetApiView, basename='task')
 router.register(r'tasks/', views.TasksMixinsFilterApiView, basename='task_filter')
 
 urlpatterns = [
@@ -20,7 +20,7 @@ urlpatterns = [
     path("graphql/", (GraphQLView.as_view(graphiql=True, schema=schema))),
 
     # UI for Tasks
-    path('', include(router.urls)),
+    path('', include(router.urls), name='tasks_list'),
 
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Optional UI:
