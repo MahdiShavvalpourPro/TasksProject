@@ -13,7 +13,6 @@ from rest_framework.response import Response
 from django.urls import reverse
 
 
-
 # endregion
 
 
@@ -23,6 +22,9 @@ from django.urls import reverse
 class TaskViewSetApiView(viewsets.ModelViewSet):
     queryset = Task.objects.order_by('status').all()
     serializer_class = TaskSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 # endregion
